@@ -316,13 +316,37 @@ html.light-mode {
     letter-spacing: -0.01em;
     line-height: 1;
   }
+  /* X uses same diagonal gradient as the logo: white top → orange bottom-right sweep */
   .wordmark-x {
-    color: #FF6B00;
+    display: inline-block;
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 600;
     line-height: 1;
+    background: linear-gradient(
+      148deg,
+      #ffffff  0%,
+      #ffffff  38%,
+      #FF6B00  58%,
+      #FF6B00  100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   html.light-mode .wordmark-main { color: #0A0A0A; }
+  /* In light mode, shift the gradient so top is near-black instead of white */
+  html.light-mode .wordmark-x {
+    background: linear-gradient(
+      148deg,
+      #0A0A0A  0%,
+      #0A0A0A  38%,
+      #FF6B00  58%,
+      #FF6B00  100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   /* ── X letter gradient (hero/standalone usage) ───────────────────────────── */
   .qx-letter {
@@ -382,6 +406,7 @@ html.light-mode {
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
+    mix-blend-mode: screen; /* makes the pure-black bg transparent on dark surfaces */
   }
   @media (min-width: 768px) {
     .qx-logo-img { height: 52px; }

@@ -1,7 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
-import { CookieBanner } from "@/components/site/CookieBanner";
 import { Home } from "@/pages/Home";
 import { About } from "@/pages/About";
 import { Projects } from "@/pages/Projects";
@@ -34,7 +33,6 @@ function App() {
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <ScrollProgress />
         <AppRoutes />
-        <CookieBanner />
       </WouterRouter>
     </QueryClientProvider>
   );
