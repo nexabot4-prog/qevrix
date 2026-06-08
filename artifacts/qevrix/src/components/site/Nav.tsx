@@ -36,6 +36,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
   const { theme, toggle } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -50,8 +51,8 @@ export function Nav() {
     width: 36,
     height: 36,
     borderRadius: "50%",
-    background: theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
-    border: theme === "dark" ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.12)",
+    background: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
+    border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.12)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -71,44 +72,39 @@ export function Nav() {
     >
       <div className="container-q flex h-16 md:h-20 items-center justify-between">
 
-        {/* ── Logo ─────────────────────────────────────────────────── */}
+        {/* ── Brand logo ─────────────────────────────────────────────────── */}
         <Link
           to="/"
           aria-label="QEVRIX Home"
-          className="flex items-center font-display text-xl md:text-2xl font-bold tracking-tight"
+          className="flex items-center"
           style={{ textDecoration: "none", gap: 14 }}
         >
-          {/*
-            Dark mode  → PNG logo visible, wordmark text next to it.
-            Light mode → PNG hidden (CSS: display:none on .qx-logo-img),
-                         wordmark text readable via CSS variables.
-          */}
-          <img
-            src="/qx-logo.png"
-            alt=""
-            aria-hidden="true"
-            className="qx-logo-img"
-            style={{ objectFit: "contain" }}
-          />
-          <span
-            className="navbar-logo-text"
-            style={{ color: "var(--color-foreground)", lineHeight: 1 }}
-          >
-            QEVRI<span className="qx-letter">X</span>
-            <span style={{ color: "#FF6B00" }}>.</span>
+          {/* PNG monogram — dark mode only */}
+          {isDark && (
+            <img
+              src="/qx-logo.png"
+              alt=""
+              aria-hidden="true"
+              className="qx-logo-img"
+            />
+          )}
+
+          {/* Playfair Display wordmark — always visible */}
+          <span className="wordmark navbar-logo-text" style={{ fontSize: 26 }}>
+            <span className="wordmark-main">Qevri</span><span className="wordmark-x">X</span>
           </span>
         </Link>
 
-        {/* ── Desktop nav ───────────────────────────────────────────── */}
+        {/* ── Desktop nav ────────────────────────────────────────────────── */}
         <nav className="hidden md:flex items-center gap-8">
           <button
             onClick={toggle}
             className="theme-toggle"
             aria-label="Toggle light/dark mode"
-            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
             style={toggleStyle}
           >
-            {theme === "dark" ? "☀" : "☽"}
+            {isDark ? "☀" : "☽"}
           </button>
           {links.map((l) => {
             const isActive = l.to === "/" ? location === "/" : location.startsWith(l.to);
@@ -129,7 +125,7 @@ export function Nav() {
           })}
         </nav>
 
-        {/* ── Hamburger ─────────────────────────────────────────────── */}
+        {/* ── Hamburger ──────────────────────────────────────────────────── */}
         <button
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -147,10 +143,10 @@ export function Nav() {
         </button>
       </div>
 
-      {/* ── Mobile drawer ─────────────────────────────────────────── */}
+      {/* ── Mobile drawer ──────────────────────────────────────────────── */}
       <div
         className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-500 ease-out ${open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}
-        style={{ background: theme === "dark" ? "rgba(10,10,10,0.97)" : "rgba(245,245,240,0.98)" }}
+        style={{ background: isDark ? "rgba(10,10,10,0.97)" : "rgba(245,245,240,0.98)" }}
       >
         <nav className="container-q flex flex-col gap-6 py-10">
           <div className="flex items-center gap-4 mb-2">
@@ -160,13 +156,13 @@ export function Nav() {
               aria-label="Toggle light/dark mode"
               style={toggleStyle}
             >
-              {theme === "dark" ? "☀" : "☽"}
+              {isDark ? "☀" : "☽"}
             </button>
             <span
               className="font-mono text-[11px] uppercase tracking-[0.18em]"
               style={{ color: "var(--color-muted-foreground)" }}
             >
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              {isDark ? "Light Mode" : "Dark Mode"}
             </span>
           </div>
           {links.map((l) => (

@@ -7,22 +7,39 @@ export function Footer() {
       <div className="container-q border-t pt-16 pb-14" style={{ borderColor: "var(--color-border)" }}>
         <div className="grid gap-12 md:grid-cols-3">
           <div className="space-y-5">
+            {/* Wordmark */}
             <Link
               to="/"
               aria-label="QEVRIX Home"
-              className="font-display text-2xl font-bold tracking-tight inline-block"
-              style={{ color: "var(--color-foreground)", textDecoration: "none" }}
+              className="inline-block"
+              style={{ textDecoration: "none" }}
             >
-              QEVRI<span className="qx-letter">X</span>
-              <span style={{ color: "#FF6B00" }}>.</span>
+              <span className="wordmark" style={{ fontSize: 20 }}>
+                <span className="wordmark-main">Qevri</span><span className="wordmark-x">X</span>
+              </span>
             </Link>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--color-muted-foreground)", maxWidth: "28ch" }}>
-              Engineering Support &amp; Innovation Systems
+
+            {/* Tagline */}
+            <p
+              className="footer-tagline"
+              style={{
+                fontSize: 12,
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.4)",
+                fontStyle: "italic",
+                letterSpacing: "0.05em",
+              }}
+            >
+              — Engineering Beyond Submission —
             </p>
+
             <p style={{ fontSize: 14, color: "var(--color-muted-foreground)" }}>
               &copy; {year} QEVRIX. All rights reserved.
             </p>
-            <p className="footer-copyright" style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+            <p
+              className="footer-copyright"
+              style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}
+            >
               <Link to="/privacy" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link>
               <span style={{ margin: "0 8px" }}>·</span>
               <Link to="/terms" style={{ color: "inherit", textDecoration: "none" }}>Terms</Link>

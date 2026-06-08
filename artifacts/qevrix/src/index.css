@@ -132,9 +132,14 @@ html.light-mode {
   }
 
   ::selection {
-    background: #FF6B00;
-    color: #0A0A0A;
+    background: rgba(255, 107, 0, 0.25);
+    color: inherit;
   }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255, 107, 0, 0.3); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255, 107, 0, 0.6); }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -149,6 +154,19 @@ html.light-mode {
   .font-body    { font-family: var(--font-body); }
   .font-mono    { font-family: var(--font-mono); }
 
+  /* ── Page fade-in ────────────────────────────────────────────────────────── */
+  @keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-wrapper {
+    animation: pageFadeIn 0.5s ease forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-wrapper { animation: none; }
+  }
+
+  /* ── Layout utilities ────────────────────────────────────────────────────── */
   .page-frame {
     position: fixed;
     inset: 12px;
@@ -157,6 +175,14 @@ html.light-mode {
     z-index: 60;
   }
 
+  .container-q {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  /* ── Pills ───────────────────────────────────────────────────────────────── */
   .pill {
     display: inline-flex;
     align-items: center;
@@ -175,14 +201,15 @@ html.light-mode {
 
   html.light-mode .pill-filled {
     background: rgba(0, 0, 0, 0.06) !important;
-    color: #0A0A0A !important;
-    border-color: rgba(0, 0, 0, 0.12) !important;
-  }
-  html.light-mode .pill-outline {
     color: rgba(0, 0, 0, 0.5) !important;
     border-color: rgba(0, 0, 0, 0.15) !important;
   }
+  html.light-mode .pill-outline {
+    color: rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
 
+  /* ── Buttons ─────────────────────────────────────────────────────────────── */
   .btn-pill {
     display: inline-flex;
     align-items: center;
@@ -213,6 +240,40 @@ html.light-mode {
   }
   .btn-pill-secondary:hover { border-color: var(--color-foreground); }
 
+  /* ── CTA text link ───────────────────────────────────────────────────────── */
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: 0;
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .cta-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #FF6B00;
+    transition: width 0.3s ease;
+  }
+  .cta-link:hover::after { width: 100%; }
+  .cta-link:hover { color: #FF6B00; }
+  .cta-link .cta-arrow { display: inline-block; transition: transform 0.2s ease; }
+  .cta-link:hover .cta-arrow { transform: translateX(4px); }
+  html.light-mode .cta-link { color: #0A0A0A; }
+
+  /* ── Typography ──────────────────────────────────────────────────────────── */
   .text-display-hero {
     font-family: var(--font-display);
     font-weight: 700;
@@ -242,26 +303,28 @@ html.light-mode {
     color: var(--color-muted-foreground);
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform;
+  /* ── Wordmark (Playfair Display serif brand name) ────────────────────────── */
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    line-height: 1;
   }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  .wordmark-main {
+    color: #ffffff;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1;
   }
+  .wordmark-x {
+    color: #FF6B00;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    line-height: 1;
+  }
+  html.light-mode .wordmark-main { color: #0A0A0A; }
 
-  .container-q {
-    width: 100%;
-    max-width: 1440px;
-    margin-inline: auto;
-    padding-inline: clamp(1.25rem, 4vw, 3.5rem);
-  }
-
-  /* ── X wordmark gradient: top-left white → bottom-right orange ─────────── */
+  /* ── X letter gradient (hero/standalone usage) ───────────────────────────── */
   .qx-letter {
     background: linear-gradient(
       148deg,
@@ -275,7 +338,6 @@ html.light-mode {
     background-clip: text;
     display: inline-block;
   }
-
   html.light-mode .qx-letter {
     background: linear-gradient(
       148deg,
@@ -289,7 +351,7 @@ html.light-mode {
     background-clip: text;
   }
 
-  /* ── Stat numbers ───────────────────────────────────────────────────────── */
+  /* ── Stat numbers ────────────────────────────────────────────────────────── */
   .stat-number {
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 700;
@@ -301,26 +363,37 @@ html.light-mode {
   }
   html.light-mode .stat-number { color: #0A0A0A; }
 
+  /* ── Reveal animation ────────────────────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Logo sizing ─────────────────────────────────────────────────────────── */
+  .qx-logo-img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  @media (min-width: 768px) {
+    .qx-logo-img { height: 52px; }
+  }
+
   /* ── Light mode — navbar ─────────────────────────────────────────────────── */
   html.light-mode header,
   html.light-mode .navbar-bg {
     background: rgba(245, 245, 240, 0.95) !important;
     border-bottom-color: rgba(0, 0, 0, 0.08) !important;
   }
-
-  /* ── Logo sizing — responsive ────────────────────────────────────────────── */
-  .qx-logo-img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-  }
-  @media (min-width: 768px) {
-    .qx-logo-img { height: 52px; }
-  }
-
-  /* ── Light mode — logo ───────────────────────────────────────────────────── */
-  html.light-mode .qx-logo-img        { display: none !important; }
-  html.light-mode .navbar-logo-text   { color: #0A0A0A; }
+  html.light-mode .navbar-logo-text { color: #0A0A0A; }
 
   /* ── Light mode — footer ─────────────────────────────────────────────────── */
   html.light-mode footer,
@@ -328,11 +401,12 @@ html.light-mode {
     background: #EEEDE8 !important;
     border-top-color: rgba(0, 0, 0, 0.08) !important;
   }
-  html.light-mode footer a { color: rgba(0, 0, 0, 0.5) !important; }
-  html.light-mode footer a:hover { color: #0A0A0A !important; }
+  html.light-mode footer a        { color: rgba(0, 0, 0, 0.5) !important; }
+  html.light-mode footer a:hover  { color: #0A0A0A !important; }
   html.light-mode .footer-copyright { color: rgba(0, 0, 0, 0.3) !important; }
+  html.light-mode .footer-tagline   { color: rgba(0, 0, 0, 0.35) !important; }
 
-  /* ── Light mode — inputs & forms ────────────────────────────────────────── */
+  /* ── Light mode — inputs ─────────────────────────────────────────────────── */
   html.light-mode input,
   html.light-mode textarea,
   html.light-mode select {
@@ -345,69 +419,70 @@ html.light-mode {
     color: rgba(0, 0, 0, 0.35) !important;
   }
 
-  /* ── Light mode — cards (team, about, etc.) ─────────────────────────────── */
+  /* ── Light mode — generic cards ──────────────────────────────────────────── */
   html.light-mode .card-dark {
     background: #FFFFFF !important;
     border-color: rgba(0, 0, 0, 0.08) !important;
   }
 
-  /* ── Light mode — testimonial cards ────────────────────────────────────── */
-  html.light-mode .testimonial-card {
+  /* ── Team cards ──────────────────────────────────────────────────────────── */
+  html.light-mode .team-card {
     background: #FFFFFF !important;
     border-color: rgba(0, 0, 0, 0.08) !important;
-    border-left-color: #FF6B00 !important;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06) !important;
+  }
+  html.light-mode .team-avatar {
+    background: rgba(255, 107, 0, 0.08) !important;
+    border-color: rgba(255, 107, 0, 0.3) !important;
+  }
+  html.light-mode .team-member-name  { color: #0A0A0A !important; }
+  html.light-mode .team-member-role  { color: #FF6B00 !important; }
+  html.light-mode .team-member-bio   { color: rgba(0, 0, 0, 0.55) !important; }
+  html.light-mode .team-divider      { background: rgba(0, 0, 0, 0.06) !important; }
+  html.light-mode .team-placeholder-note { color: rgba(0, 0, 0, 0.25) !important; }
+
+  /* ── Testimonial cards ───────────────────────────────────────────────────── */
+  html.light-mode .testimonial-card {
+    background: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.07) !important;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
   }
-  html.light-mode .testimonial-quote  { color: rgba(0, 0, 0, 0.8) !important; }
-  html.light-mode .testimonial-name   { color: #0A0A0A !important; }
-  html.light-mode .testimonial-role   { color: rgba(0, 0, 0, 0.4) !important; }
+  html.light-mode .testimonial-quote   { color: rgba(0, 0, 0, 0.8) !important; }
+  html.light-mode .testimonial-name    { color: #0A0A0A !important; }
+  html.light-mode .testimonial-role    { color: rgba(0, 0, 0, 0.4) !important; }
   html.light-mode .testimonial-divider { background: rgba(0, 0, 0, 0.07) !important; }
-  html.light-mode .quote-mark        { color: #FF6B00 !important; opacity: 0.7; }
+  html.light-mode .quote-mark          { color: #FF6B00 !important; opacity: 0.85; }
 
-  /* ── Light mode — The Standard / CTA ────────────────────────────────────── */
+  /* ── The Standard / CTA section ─────────────────────────────────────────── */
   html.light-mode .standard-section {
     background: #EEEDE8 !important;
-    border-top-color: rgba(0, 0, 0, 0.07) !important;
+    border-top-color: rgba(0, 0, 0, 0.06) !important;
   }
   html.light-mode .standard-heading  { color: #0A0A0A !important; }
-  html.light-mode .standard-sub      { color: rgba(0, 0, 0, 0.45) !important; }
-  html.light-mode .standard-email    { color: rgba(0, 0, 0, 0.25) !important; }
+  html.light-mode .standard-sub      { color: rgba(0, 0, 0, 0.4) !important; }
+  html.light-mode .standard-email    { color: rgba(0, 0, 0, 0.2) !important; }
   html.light-mode .standard-glow {
-    background: radial-gradient(ellipse at 50% 100%, rgba(255, 107, 0, 0.03) 0%, transparent 60%) !important;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 107, 0, 0.04) 0%, transparent 55%) !important;
   }
 
-  /* ── Light mode — project images ────────────────────────────────────────── */
-  html.light-mode .project-img-wrap {
-    background: #E0DFD9 !important;
-  }
+  /* ── Project image containers ────────────────────────────────────────────── */
+  .project-img-wrap { overflow: hidden; background: #111111; }
+  .project-img-wrap img { transition: transform 0.5s ease; }
+  .project-img-wrap:hover img { transform: scale(1.04); }
+  html.light-mode .project-img-wrap { background: #E0DFD9 !important; }
   html.light-mode .project-img-overlay { display: none !important; }
 
-  /* ── Light mode — project text ──────────────────────────────────────────── */
   html.light-mode .project-summary { color: rgba(0, 0, 0, 0.85) !important; }
   html.light-mode .project-body    { color: rgba(0, 0, 0, 0.6) !important; }
 
-  /* ── Light mode — section borders (white opacity → dark opacity) ─────────── */
-  html.light-mode [style*="rgba(255,255,255,0.06)"],
-  html.light-mode [style*="rgba(255, 255, 255, 0.06)"] {
-    border-color: rgba(0, 0, 0, 0.07) !important;
-  }
-  html.light-mode [style*="rgba(255,255,255,0.07)"],
-  html.light-mode [style*="rgba(255, 255, 255, 0.07)"] {
-    border-color: rgba(0, 0, 0, 0.07) !important;
-  }
-  html.light-mode [style*="rgba(255,255,255,0.08)"],
-  html.light-mode [style*="rgba(255, 255, 255, 0.08)"] {
-    border-color: rgba(0, 0, 0, 0.08) !important;
-  }
+  /* ── 404 page ────────────────────────────────────────────────────────────── */
+  html.light-mode .error-page      { background: #F5F5F0 !important; }
+  html.light-mode .error-number    { -webkit-text-stroke-color: rgba(0, 0, 0, 0.12) !important; }
+  html.light-mode .error-heading   { color: #0A0A0A !important; }
+  html.light-mode .error-sub       { color: rgba(0, 0, 0, 0.4) !important; }
+  html.light-mode .error-watermark { color: rgba(0, 0, 0, 0.025) !important; }
 
-  /* ── Light mode — 404 page ──────────────────────────────────────────────── */
-  html.light-mode .error-page       { background: #F5F5F0 !important; }
-  html.light-mode .error-number     { -webkit-text-stroke-color: rgba(0, 0, 0, 0.12) !important; }
-  html.light-mode .error-heading    { color: #0A0A0A !important; }
-  html.light-mode .error-sub        { color: rgba(0, 0, 0, 0.4) !important; }
-  html.light-mode .error-watermark  { color: rgba(0, 0, 0, 0.025) !important; }
-
-  /* ── Light mode — cookie banner ─────────────────────────────────────────── */
+  /* ── Cookie banner ───────────────────────────────────────────────────────── */
   html.light-mode .cookie-banner {
     background: #FFFFFF !important;
     border-top-color: rgba(0, 0, 0, 0.08) !important;
@@ -415,34 +490,19 @@ html.light-mode {
   }
   html.light-mode .cookie-text { color: rgba(0, 0, 0, 0.6) !important; }
 
-  /* ── Light mode — theme toggle ───────────────────────────────────────────── */
+  /* ── Theme toggle ────────────────────────────────────────────────────────── */
   html.light-mode .theme-toggle {
     background: rgba(0, 0, 0, 0.06) !important;
     border-color: rgba(0, 0, 0, 0.12) !important;
   }
 
-  /* ── 404 glitch animation ───────────────────────────────────────────────── */
+  /* ── 404 glitch ──────────────────────────────────────────────────────────── */
   @keyframes glitch {
     0%, 100% { transform: none; }
-    10% { transform: translateX(2px) skewX(1deg); }
-    20% { transform: translateX(-2px); }
-    30% { transform: none; }
+    10%  { transform: translateX(2px) skewX(1deg); }
+    20%  { transform: translateX(-2px); }
+    30%  { transform: none; }
   }
   .glitch-404 { animation: glitch 4s infinite; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .glitch-404 { animation: none; }
-  }
-
-  /* ── Project image hover scale ───────────────────────────────────────────── */
-  .project-img-wrap {
-    overflow: hidden;
-    background: #111111;
-  }
-  .project-img-wrap img {
-    transition: transform 0.5s ease;
-  }
-  .project-img-wrap:hover img {
-    transform: scale(1.04);
-  }
+  @media (prefers-reduced-motion: reduce) { .glitch-404 { animation: none; } }
 }

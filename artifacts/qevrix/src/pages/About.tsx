@@ -78,7 +78,7 @@ export function About() {
         </div>
       </section>
 
-      {/* Vision */}
+      {/* Vision — §8: larger container, readable font size */}
       <section className="py-32 md:py-48" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="container-q grid md:grid-cols-12 gap-12">
           <Reveal className="md:col-span-3">
@@ -86,7 +86,16 @@ export function About() {
           </Reveal>
           <div className="md:col-span-9">
             <Reveal>
-              <h2 className="text-display-xl max-w-4xl">
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
+                  lineHeight: 1.4,
+                  letterSpacing: "-0.02em",
+                  maxWidth: 900,
+                }}
+              >
                 To become one of the engineering companies that defines how the next generation of systems is built.
               </h2>
             </Reveal>
@@ -123,7 +132,7 @@ export function About() {
       </section>
 
       {/* TEAM */}
-      <section className="py-32 md:py-48" style={{ borderTop: "1px solid var(--color-border)" }}>
+      <section className="team-section py-32 md:py-48" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="container-q mb-16">
           <Reveal>
             <PillTags filled="04" outline="The Team" className="mb-6" />
@@ -134,6 +143,7 @@ export function About() {
           {team.map((m, i) => (
             <Reveal key={i} delay={i * 100}>
               <article
+                className="team-card"
                 style={{
                   background: "linear-gradient(135deg, #111111, #0D0D0D)",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -153,18 +163,56 @@ export function About() {
                   el.style.boxShadow = "none";
                 }}
               >
-                <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(255,107,0,0.08)", border: "1.5px solid rgba(255,107,0,0.35)", color: "#FF6B00", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700 }}>
+                <div
+                  className="team-avatar"
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    background: "rgba(255,107,0,0.08)",
+                    border: "1.5px solid rgba(255,107,0,0.35)",
+                    color: "#FF6B00",
+                    fontSize: 18,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}
+                >
                   {m.initials}
                 </div>
-                <h3 style={{ color: "#fff", fontSize: 17, fontWeight: 600, marginTop: 18 }}>{m.name}</h3>
-                <p className="font-mono uppercase" style={{ color: "#FF6B00", fontSize: 11, letterSpacing: "0.08em", marginTop: 5 }}>{m.role}</p>
-                <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "18px 0" }} />
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.75 }}>{m.bio}</p>
+                <h3
+                  className="team-member-name"
+                  style={{ color: "#fff", fontSize: 17, fontWeight: 600, marginTop: 18 }}
+                >
+                  {m.name}
+                </h3>
+                <p
+                  className="team-member-role font-mono uppercase"
+                  style={{ color: "#FF6B00", fontSize: 11, letterSpacing: "0.08em", marginTop: 5 }}
+                >
+                  {m.role}
+                </p>
+                <div
+                  className="team-divider"
+                  style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "18px 0" }}
+                />
+                <p
+                  className="team-member-bio"
+                  style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.75 }}
+                >
+                  {m.bio}
+                </p>
               </article>
             </Reveal>
           ))}
         </div>
-        <p className="container-q text-center mt-10 italic" style={{ color: "rgba(255,255,255,0.25)", fontSize: 12 }}>
+        <p
+          className="team-placeholder-note container-q text-center mt-10 italic"
+          style={{ color: "rgba(255,255,255,0.25)", fontSize: 12 }}
+        >
           * Placeholder profiles — names and photos will be updated.
         </p>
       </section>

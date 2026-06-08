@@ -151,7 +151,7 @@ export function Home() {
         </ul>
       </section>
 
-      {/* STATS — BY THE NUMBERS — no divider lines, generous gap only */}
+      {/* STATS — BY THE NUMBERS */}
       <section
         className="py-32 md:py-44"
         style={{
@@ -226,7 +226,6 @@ export function Home() {
           {work.map((w, i) => (
             <Reveal key={w.title} delay={i * 80}>
               <article className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
-                {/* Image */}
                 <div className="md:col-span-7">
                   <div
                     className="project-img-wrap"
@@ -257,7 +256,6 @@ export function Home() {
                     </span>
                   </div>
                 </div>
-                {/* Text */}
                 <div className="md:col-span-5 space-y-5">
                   <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: "0.22em", color: "var(--color-muted-foreground)" }}>{w.tag}</p>
                   <h3 className="font-display text-3xl md:text-4xl font-semibold leading-tight">{w.title}</h3>
@@ -278,7 +276,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS / RECOGNITION */}
+      {/* TESTIMONIALS / RECOGNITION — §6: no orange side border */}
       <section className="py-32 md:py-48">
         <div className="container-q">
           <Reveal>
@@ -295,40 +293,34 @@ export function Home() {
                   style={{
                     background: "#0D0D0D",
                     border: "1px solid rgba(255,255,255,0.07)",
-                    borderLeft: "2px solid #FF6B00",
                     borderRadius: 2,
                     padding: "40px 36px",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
                     cursor: "default",
+                    transition: "border-color 0.3s, background 0.3s",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget;
-                    el.style.borderTopColor    = "rgba(255,107,0,0.3)";
-                    el.style.borderRightColor  = "rgba(255,107,0,0.3)";
-                    el.style.borderBottomColor = "rgba(255,107,0,0.3)";
-                    el.style.borderLeftColor   = "#FF6B00";
-                    el.style.background        = "#111111";
+                    el.style.borderColor = "rgba(255,255,255,0.14)";
+                    el.style.background = "#111111";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget;
-                    el.style.borderTopColor    = "rgba(255,255,255,0.07)";
-                    el.style.borderRightColor  = "rgba(255,255,255,0.07)";
-                    el.style.borderBottomColor = "rgba(255,255,255,0.07)";
-                    el.style.borderLeftColor   = "#FF6B00";
-                    el.style.background        = "#0D0D0D";
+                    el.style.borderColor = "rgba(255,255,255,0.07)";
+                    el.style.background = "#0D0D0D";
                   }}
                 >
                   <div
                     className="quote-mark"
-                    style={{ color: "#FF6B00", fontSize: 72, lineHeight: 1, fontFamily: "Georgia, serif", opacity: 0.9, marginBottom: 4 }}
+                    style={{ color: "#FF6B00", fontSize: 64, lineHeight: 1, fontFamily: "Georgia, serif", opacity: 0.85, marginBottom: 4 }}
                   >
                     &ldquo;
                   </div>
                   <p
                     className="testimonial-quote"
-                    style={{ color: "rgba(255,255,255,0.85)", fontSize: 16, lineHeight: 1.8, fontStyle: "italic", fontFamily: "Georgia, serif", flex: 1, marginTop: -16 }}
+                    style={{ color: "rgba(255,255,255,0.85)", fontSize: 16, lineHeight: 1.8, fontStyle: "italic", fontFamily: "Georgia, serif", flex: 1, marginTop: -14 }}
                   >
                     {t.quote}
                   </p>
@@ -355,44 +347,69 @@ export function Home() {
         </div>
       </section>
 
-      {/* FINAL CTA — THE STANDARD */}
+      {/* FINAL CTA — THE STANDARD §9: enhanced background, pill button */}
       <section
         className="standard-section relative overflow-hidden"
         style={{
-          background: "linear-gradient(180deg, #0A0A0A 0%, #0D0D0D 100%)",
-          borderTop: "1px solid rgba(255,255,255,0.07)",
+          background: "#080808",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
           padding: "120px 0",
+          minHeight: 480,
         }}
       >
         <div
           aria-hidden="true"
           className="standard-glow pointer-events-none absolute inset-0"
-          style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(255,107,0,0.05) 0%, transparent 60%)" }}
+          style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(255,107,0,0.07) 0%, transparent 55%)" }}
         />
         <Reveal>
           <div className="container-q text-center relative">
             <PillTags filled="08" outline="The Standard" className="justify-center mb-12" />
+
             <h2 className="standard-heading" style={{ lineHeight: 1.05 }}>
-              <Reveal as="span" className="block" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 300, fontFamily: "Georgia, serif", fontStyle: "italic" }}>
+              <Reveal as="span" className="block"
+                style={{
+                  fontSize: "clamp(3.5rem,8vw,6.5rem)",
+                  fontWeight: 300,
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontStyle: "italic",
+                }}
+              >
                 Build.
               </Reveal>
-              <Reveal as="span" delay={120} className="block font-display" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 700, fontStyle: "normal" }}>
+              <Reveal as="span" delay={120} className="block font-display"
+                style={{
+                  fontSize: "clamp(3.5rem,8vw,6.5rem)",
+                  fontWeight: 800,
+                  fontStyle: "normal",
+                }}
+              >
                 Innovate.
               </Reveal>
-              <Reveal as="span" delay={240} className="block" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 300, fontFamily: "Georgia, serif", fontStyle: "italic", color: "#FF6B00" }}>
+              <Reveal as="span" delay={240} className="block"
+                style={{
+                  fontSize: "clamp(3.5rem,8vw,6.5rem)",
+                  fontWeight: 300,
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontStyle: "italic",
+                  color: "#FF6B00",
+                }}
+              >
                 Evolve.
               </Reveal>
             </h2>
+
             <Reveal delay={360}>
               <p
                 className="standard-sub"
-                style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", marginTop: 24, letterSpacing: "0.03em" }}
+                style={{ fontSize: 14, color: "rgba(255,255,255,0.35)", marginTop: 20, letterSpacing: "0.04em" }}
               >
                 The standard is not what gets submitted. It is what gets built.
               </p>
             </Reveal>
+
             <Reveal delay={480}>
-              <div className="mt-12">
+              <div className="mt-10">
                 <Link
                   to="/contact"
                   style={{
@@ -404,22 +421,30 @@ export function Home() {
                     fontWeight: 600,
                     fontSize: 14,
                     padding: "14px 32px",
-                    borderRadius: 4,
+                    borderRadius: 9999,
                     textDecoration: "none",
-                    transition: "background 0.2s, transform 0.2s",
                     fontFamily: "var(--font-mono)",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
+                    transition: "filter 0.2s, transform 0.2s",
                   }}
-                  onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "#e05a00"; el.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "#FF6B00"; el.style.transform = "none"; }}
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.filter = "brightness(1.08)";
+                    el.style.transform = "translateY(-1px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget as HTMLAnchorElement;
+                    el.style.filter = "";
+                    el.style.transform = "none";
+                  }}
                 >
                   Start a Conversation →
                 </Link>
               </div>
               <p
                 className="standard-email"
-                style={{ fontSize: 12, color: "rgba(255,255,255,0.2)", marginTop: 20 }}
+                style={{ fontSize: 11, color: "rgba(255,255,255,0.18)", marginTop: 16, letterSpacing: "0.06em" }}
               >
                 hello@qevrix.com · India · Remote
               </p>
