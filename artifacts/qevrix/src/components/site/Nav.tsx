@@ -46,47 +46,67 @@ export function Nav() {
     setOpen(false);
   }, [location]);
 
+  const toggleStyle: React.CSSProperties = {
+    width: 36,
+    height: 36,
+    borderRadius: "50%",
+    background: theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
+    border: theme === "dark" ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.12)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 16,
+    cursor: "pointer",
+    transition: "all 0.2s",
+    flexShrink: 0,
+  };
+
   return (
-    <header className={`navbar-bg fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${open ? "backdrop-blur-xl" : ""}`}
-      style={{ background: open ? "rgba(10,10,10,0.9)" : "transparent", borderBottom: open ? "1px solid rgba(255,255,255,0.07)" : "none" }}>
+    <header
+      className={`navbar-bg fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${open ? "backdrop-blur-xl" : ""}`}
+      style={{
+        background: open ? "rgba(10,10,10,0.9)" : "transparent",
+        borderBottom: open ? "1px solid rgba(255,255,255,0.07)" : "none",
+      }}
+    >
       <div className="container-q flex h-16 md:h-20 items-center justify-between">
+
+        {/* ── Logo ─────────────────────────────────────────────────── */}
         <Link
           to="/"
           aria-label="QEVRIX Home"
           className="flex items-center font-display text-xl md:text-2xl font-bold tracking-tight"
-          style={{ color: "var(--color-foreground)", textDecoration: "none" }}
+          style={{ textDecoration: "none", gap: 14 }}
         >
+          {/*
+            Dark mode  → PNG logo visible, wordmark text next to it.
+            Light mode → PNG hidden (CSS: display:none on .qx-logo-img),
+                         wordmark text readable via CSS variables.
+          */}
           <img
             src="/qx-logo.png"
-            alt="QEVRIX Logo"
+            alt=""
+            aria-hidden="true"
             className="qx-logo-img"
-            style={{ height: 40, width: "auto", objectFit: "contain", marginRight: 12 }}
+            style={{ objectFit: "contain" }}
           />
-          <span>
-            QEVRI<span className="x-gradient">X</span>
+          <span
+            className="navbar-logo-text"
+            style={{ color: "var(--color-foreground)", lineHeight: 1 }}
+          >
+            QEVRI<span className="qx-letter">X</span>
             <span style={{ color: "#FF6B00" }}>.</span>
           </span>
         </Link>
 
+        {/* ── Desktop nav ───────────────────────────────────────────── */}
         <nav className="hidden md:flex items-center gap-8">
           <button
             onClick={toggle}
+            className="theme-toggle"
             aria-label="Toggle light/dark mode"
             title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: "50%",
-              background: theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
-              border: theme === "dark" ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 16,
-              cursor: "pointer",
-              transition: "all 0.2s",
-              flexShrink: 0,
-            }}
+            style={toggleStyle}
           >
             {theme === "dark" ? "☀" : "☽"}
           </button>
@@ -109,37 +129,43 @@ export function Nav() {
           })}
         </nav>
 
+        {/* ── Hamburger ─────────────────────────────────────────────── */}
         <button
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="md:hidden relative h-10 w-10 flex flex-col items-center justify-center gap-1.5"
         >
-          <span className={`block h-px w-6 bg-foreground transition-transform duration-300 ${open ? "translate-y-[3px] rotate-45" : ""}`}
-            style={{ background: "var(--color-foreground)" }} />
-          <span className={`block h-px w-6 transition-transform duration-300 ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
-            style={{ background: "var(--color-foreground)" }} />
+          <span
+            className={`block h-px w-6 transition-transform duration-300 ${open ? "translate-y-[3px] rotate-45" : ""}`}
+            style={{ background: "var(--color-foreground)" }}
+          />
+          <span
+            className={`block h-px w-6 transition-transform duration-300 ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
+            style={{ background: "var(--color-foreground)" }}
+          />
         </button>
       </div>
 
-      <div className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-500 ease-out ${open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}
-        style={{ background: "rgba(10,10,10,0.97)" }}>
+      {/* ── Mobile drawer ─────────────────────────────────────────── */}
+      <div
+        className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-500 ease-out ${open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}
+        style={{ background: theme === "dark" ? "rgba(10,10,10,0.97)" : "rgba(245,245,240,0.98)" }}
+      >
         <nav className="container-q flex flex-col gap-6 py-10">
           <div className="flex items-center gap-4 mb-2">
             <button
               onClick={toggle}
+              className="theme-toggle"
               aria-label="Toggle light/dark mode"
-              style={{
-                width: 36, height: 36, borderRadius: "50%",
-                background: theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
-                border: theme === "dark" ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(0,0,0,0.12)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 16, cursor: "pointer",
-              }}
+              style={toggleStyle}
             >
               {theme === "dark" ? "☀" : "☽"}
             </button>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--color-muted-foreground)" }}>
+            <span
+              className="font-mono text-[11px] uppercase tracking-[0.18em]"
+              style={{ color: "var(--color-muted-foreground)" }}
+            >
               {theme === "dark" ? "Light Mode" : "Dark Mode"}
             </span>
           </div>

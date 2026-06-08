@@ -46,7 +46,7 @@
   --ring: oklch(0.68 0.19 40);
   --card: oklch(0.17 0 0);
   --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.17 0 0);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(1 0 0);
   --primary: oklch(1 0 0);
   --primary-foreground: oklch(0.145 0 0);
@@ -81,49 +81,6 @@ html.light-mode {
   --frame-color: oklch(0.85 0 0);
 }
 
-html.light-mode body {
-  background-color: #F5F5F0;
-  color: #0A0A0A;
-}
-
-html.light-mode .navbar-bg {
-  background: rgba(245, 245, 240, 0.92) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-html.light-mode .qx-logo-img {
-  filter: invert(1);
-}
-
-html.light-mode .pill-filled {
-  background: rgba(0, 0, 0, 0.06) !important;
-  color: #0A0A0A !important;
-  border-color: rgba(0, 0, 0, 0.12) !important;
-}
-
-html.light-mode .pill-outline {
-  color: rgba(0, 0, 0, 0.5) !important;
-  border-color: rgba(0, 0, 0, 0.15) !important;
-}
-
-html.light-mode .footer-bg {
-  background: #EEEDE8 !important;
-  border-top-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-html.light-mode input,
-html.light-mode textarea,
-html.light-mode select {
-  background: #FFFFFF !important;
-  color: #0A0A0A !important;
-  border-color: rgba(0, 0, 0, 0.15) !important;
-}
-
-html.light-mode .card-dark {
-  background: #FFFFFF !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-}
-
 @layer base {
   * {
     border-color: var(--color-border);
@@ -147,6 +104,7 @@ html.light-mode .card-dark {
 
   html.light-mode body {
     background-color: #F5F5F0;
+    color: #0A0A0A;
   }
 
   a, button, [role="button"] {
@@ -215,6 +173,16 @@ html.light-mode .card-dark {
   .pill-filled  { background: oklch(0.19 0 0); color: var(--color-foreground); border: 1px solid oklch(0.22 0 0); }
   .pill-outline { background: transparent; color: var(--color-muted-foreground); border: 1px solid var(--color-border); }
 
+  html.light-mode .pill-filled {
+    background: rgba(0, 0, 0, 0.06) !important;
+    color: #0A0A0A !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+  }
+  html.light-mode .pill-outline {
+    color: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
+
   .btn-pill {
     display: inline-flex;
     align-items: center;
@@ -239,6 +207,9 @@ html.light-mode .card-dark {
     background: transparent;
     color: var(--color-foreground);
     border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  html.light-mode .btn-pill-secondary {
+    border-color: rgba(0, 0, 0, 0.25) !important;
   }
   .btn-pill-secondary:hover { border-color: var(--color-foreground); }
 
@@ -290,25 +261,27 @@ html.light-mode .card-dark {
     padding-inline: clamp(1.25rem, 4vw, 3.5rem);
   }
 
-  .x-gradient {
+  /* ── X wordmark gradient: top-left white → bottom-right orange ─────────── */
+  .qx-letter {
     background: linear-gradient(
-      135deg,
+      148deg,
       #ffffff 0%,
-      #ffffff 48%,
-      #FF6B00 52%,
+      #ffffff 45%,
+      #FF6B00 55%,
       #FF6B00 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: inline-block;
   }
 
-  html.light-mode .x-gradient {
+  html.light-mode .qx-letter {
     background: linear-gradient(
-      135deg,
+      148deg,
       #0A0A0A 0%,
-      #0A0A0A 48%,
-      #FF6B00 52%,
+      #0A0A0A 45%,
+      #FF6B00 55%,
       #FF6B00 100%
     );
     -webkit-background-clip: text;
@@ -316,6 +289,7 @@ html.light-mode .card-dark {
     background-clip: text;
   }
 
+  /* ── Stat numbers ───────────────────────────────────────────────────────── */
   .stat-number {
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 700;
@@ -325,23 +299,150 @@ html.light-mode .card-dark {
     letter-spacing: -0.02em;
     line-height: 1;
   }
+  html.light-mode .stat-number { color: #0A0A0A; }
 
-  html.light-mode .stat-number {
-    color: #0A0A0A;
+  /* ── Light mode — navbar ─────────────────────────────────────────────────── */
+  html.light-mode header,
+  html.light-mode .navbar-bg {
+    background: rgba(245, 245, 240, 0.95) !important;
+    border-bottom-color: rgba(0, 0, 0, 0.08) !important;
   }
 
+  /* ── Logo sizing — responsive ────────────────────────────────────────────── */
+  .qx-logo-img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+  }
+  @media (min-width: 768px) {
+    .qx-logo-img { height: 52px; }
+  }
+
+  /* ── Light mode — logo ───────────────────────────────────────────────────── */
+  html.light-mode .qx-logo-img        { display: none !important; }
+  html.light-mode .navbar-logo-text   { color: #0A0A0A; }
+
+  /* ── Light mode — footer ─────────────────────────────────────────────────── */
+  html.light-mode footer,
+  html.light-mode .footer-bg {
+    background: #EEEDE8 !important;
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+  }
+  html.light-mode footer a { color: rgba(0, 0, 0, 0.5) !important; }
+  html.light-mode footer a:hover { color: #0A0A0A !important; }
+  html.light-mode .footer-copyright { color: rgba(0, 0, 0, 0.3) !important; }
+
+  /* ── Light mode — inputs & forms ────────────────────────────────────────── */
+  html.light-mode input,
+  html.light-mode textarea,
+  html.light-mode select {
+    background: #FFFFFF !important;
+    color: #0A0A0A !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
+  html.light-mode input::placeholder,
+  html.light-mode textarea::placeholder {
+    color: rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* ── Light mode — cards (team, about, etc.) ─────────────────────────────── */
+  html.light-mode .card-dark {
+    background: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* ── Light mode — testimonial cards ────────────────────────────────────── */
+  html.light-mode .testimonial-card {
+    background: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    border-left-color: #FF6B00 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+  }
+  html.light-mode .testimonial-quote  { color: rgba(0, 0, 0, 0.8) !important; }
+  html.light-mode .testimonial-name   { color: #0A0A0A !important; }
+  html.light-mode .testimonial-role   { color: rgba(0, 0, 0, 0.4) !important; }
+  html.light-mode .testimonial-divider { background: rgba(0, 0, 0, 0.07) !important; }
+  html.light-mode .quote-mark        { color: #FF6B00 !important; opacity: 0.7; }
+
+  /* ── Light mode — The Standard / CTA ────────────────────────────────────── */
+  html.light-mode .standard-section {
+    background: #EEEDE8 !important;
+    border-top-color: rgba(0, 0, 0, 0.07) !important;
+  }
+  html.light-mode .standard-heading  { color: #0A0A0A !important; }
+  html.light-mode .standard-sub      { color: rgba(0, 0, 0, 0.45) !important; }
+  html.light-mode .standard-email    { color: rgba(0, 0, 0, 0.25) !important; }
+  html.light-mode .standard-glow {
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 107, 0, 0.03) 0%, transparent 60%) !important;
+  }
+
+  /* ── Light mode — project images ────────────────────────────────────────── */
+  html.light-mode .project-img-wrap {
+    background: #E0DFD9 !important;
+  }
+  html.light-mode .project-img-overlay { display: none !important; }
+
+  /* ── Light mode — project text ──────────────────────────────────────────── */
+  html.light-mode .project-summary { color: rgba(0, 0, 0, 0.85) !important; }
+  html.light-mode .project-body    { color: rgba(0, 0, 0, 0.6) !important; }
+
+  /* ── Light mode — section borders (white opacity → dark opacity) ─────────── */
+  html.light-mode [style*="rgba(255,255,255,0.06)"],
+  html.light-mode [style*="rgba(255, 255, 255, 0.06)"] {
+    border-color: rgba(0, 0, 0, 0.07) !important;
+  }
+  html.light-mode [style*="rgba(255,255,255,0.07)"],
+  html.light-mode [style*="rgba(255, 255, 255, 0.07)"] {
+    border-color: rgba(0, 0, 0, 0.07) !important;
+  }
+  html.light-mode [style*="rgba(255,255,255,0.08)"],
+  html.light-mode [style*="rgba(255, 255, 255, 0.08)"] {
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* ── Light mode — 404 page ──────────────────────────────────────────────── */
+  html.light-mode .error-page       { background: #F5F5F0 !important; }
+  html.light-mode .error-number     { -webkit-text-stroke-color: rgba(0, 0, 0, 0.12) !important; }
+  html.light-mode .error-heading    { color: #0A0A0A !important; }
+  html.light-mode .error-sub        { color: rgba(0, 0, 0, 0.4) !important; }
+  html.light-mode .error-watermark  { color: rgba(0, 0, 0, 0.025) !important; }
+
+  /* ── Light mode — cookie banner ─────────────────────────────────────────── */
+  html.light-mode .cookie-banner {
+    background: #FFFFFF !important;
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+    color: #0A0A0A !important;
+  }
+  html.light-mode .cookie-text { color: rgba(0, 0, 0, 0.6) !important; }
+
+  /* ── Light mode — theme toggle ───────────────────────────────────────────── */
+  html.light-mode .theme-toggle {
+    background: rgba(0, 0, 0, 0.06) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* ── 404 glitch animation ───────────────────────────────────────────────── */
   @keyframes glitch {
     0%, 100% { transform: none; }
     10% { transform: translateX(2px) skewX(1deg); }
     20% { transform: translateX(-2px); }
     30% { transform: none; }
   }
-
-  .glitch-404 {
-    animation: glitch 4s infinite;
-  }
+  .glitch-404 { animation: glitch 4s infinite; }
 
   @media (prefers-reduced-motion: reduce) {
     .glitch-404 { animation: none; }
+  }
+
+  /* ── Project image hover scale ───────────────────────────────────────────── */
+  .project-img-wrap {
+    overflow: hidden;
+    background: #111111;
+  }
+  .project-img-wrap img {
+    transition: transform 0.5s ease;
+  }
+  .project-img-wrap:hover img {
+    transform: scale(1.04);
   }
 }

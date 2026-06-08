@@ -151,25 +151,34 @@ export function Home() {
         </ul>
       </section>
 
-      {/* STATS — BY THE NUMBERS */}
-      <section className="py-32 md:py-44" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      {/* STATS — BY THE NUMBERS — no divider lines, generous gap only */}
+      <section
+        className="py-32 md:py-44"
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
         <div className="container-q">
           <Reveal>
             <PillTags filled="05" outline="By The Numbers" className="mb-16" />
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-16 md:gap-20">
             {[
               { num: 5, suffix: "+", label: "Systems Built" },
-              { num: 5, suffix: "", label: "Engineering Domains" },
+              { num: 5, suffix: "",  label: "Engineering Domains" },
               { num: 2026, suffix: "", label: "Founded" },
               { text: "India · Remote", label: "Based" },
             ].map((s, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.08)" : "none", paddingRight: 32 }}>
+                <div>
                   <div className="stat-number">
                     {"text" in s ? s.text : <CountUp end={s.num!} suffix={s.suffix} />}
                   </div>
-                  <p className="font-mono uppercase mt-3" style={{ color: "#FF6B00", fontSize: 10, letterSpacing: "0.18em", fontWeight: 500, marginTop: 12 }}>
+                  <p
+                    className="font-mono uppercase"
+                    style={{ color: "#FF6B00", fontSize: 10, letterSpacing: "0.18em", fontWeight: 500, marginTop: 12 }}
+                  >
                     {s.label}
                   </p>
                 </div>
@@ -181,7 +190,8 @@ export function Home() {
 
       {/* FUTURE VISION */}
       <section className="relative py-40 md:py-64 overflow-hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(60% 50% at 50% 50%, rgba(255,107,0,0.14), transparent 70%)" }} />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(60% 50% at 50% 50%, rgba(255,107,0,0.14), transparent 70%)" }} />
         <div className="container-q relative text-center">
           <Reveal>
             <PillTags filled="06" outline="Future Vision" className="justify-center mb-12" />
@@ -216,20 +226,38 @@ export function Home() {
           {work.map((w, i) => (
             <Reveal key={w.title} delay={i * 80}>
               <article className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
+                {/* Image */}
                 <div className="md:col-span-7">
-                  <div className="aspect-[16/10] relative overflow-hidden" style={{ background: "var(--color-muted)" }}>
+                  <div
+                    className="project-img-wrap"
+                    style={{ aspectRatio: "16/10", position: "relative", borderRadius: 2 }}
+                  >
                     <img
                       src={w.img}
                       alt={w.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      style={{ opacity: 0.9 }}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)" }} />
-                    <span className="absolute bottom-5 left-5 font-mono uppercase" style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.7)" }}>
+                    <div
+                      className="project-img-overlay"
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: "40%",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    <span
+                      className="absolute font-mono uppercase"
+                      style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.7)", bottom: 20, left: 20 }}
+                    >
                       Case Study / 0{i + 1}
                     </span>
                   </div>
                 </div>
+                {/* Text */}
                 <div className="md:col-span-5 space-y-5">
                   <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: "0.22em", color: "var(--color-muted-foreground)" }}>{w.tag}</p>
                   <h3 className="font-display text-3xl md:text-4xl font-semibold leading-tight">{w.title}</h3>
@@ -239,16 +267,18 @@ export function Home() {
             </Reveal>
           ))}
         </div>
+
         <div className="container-q mt-16 text-center">
           <Reveal>
-            <Link to="/projects" className="font-mono uppercase text-sm" style={{ color: "#FF6B00", letterSpacing: "0.12em", textDecoration: "none" }}>
+            <Link to="/projects" className="font-mono uppercase text-sm"
+              style={{ color: "#FF6B00", letterSpacing: "0.12em", textDecoration: "none" }}>
               View All Projects →
             </Link>
           </Reveal>
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* TESTIMONIALS / RECOGNITION */}
       <section className="py-32 md:py-48">
         <div className="container-q">
           <Reveal>
@@ -261,7 +291,7 @@ export function Home() {
             {testimonials.map((t, i) => (
               <Reveal key={i} delay={i * 150}>
                 <article
-                  className="card-dark group"
+                  className="testimonial-card"
                   style={{
                     background: "#0D0D0D",
                     border: "1px solid rgba(255,255,255,0.07)",
@@ -271,32 +301,51 @@ export function Home() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    transition: "border-color 0.3s, background 0.3s",
                     cursor: "default",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget;
-                    el.style.borderColor = "rgba(255,107,0,0.3)";
-                    el.style.background = "#111111";
+                    el.style.borderTopColor    = "rgba(255,107,0,0.3)";
+                    el.style.borderRightColor  = "rgba(255,107,0,0.3)";
+                    el.style.borderBottomColor = "rgba(255,107,0,0.3)";
+                    el.style.borderLeftColor   = "#FF6B00";
+                    el.style.background        = "#111111";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget;
-                    el.style.borderColor = "rgba(255,255,255,0.07)";
-                    el.style.borderLeftColor = "#FF6B00";
-                    el.style.background = "#0D0D0D";
+                    el.style.borderTopColor    = "rgba(255,255,255,0.07)";
+                    el.style.borderRightColor  = "rgba(255,255,255,0.07)";
+                    el.style.borderBottomColor = "rgba(255,255,255,0.07)";
+                    el.style.borderLeftColor   = "#FF6B00";
+                    el.style.background        = "#0D0D0D";
                   }}
                 >
-                  <div style={{ color: "#FF6B00", fontSize: 72, lineHeight: 1, fontFamily: "Georgia, serif", opacity: 0.9, marginBottom: 4 }}>
+                  <div
+                    className="quote-mark"
+                    style={{ color: "#FF6B00", fontSize: 72, lineHeight: 1, fontFamily: "Georgia, serif", opacity: 0.9, marginBottom: 4 }}
+                  >
                     &ldquo;
                   </div>
-                  <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 16, lineHeight: 1.8, fontStyle: "italic", fontFamily: "Georgia, serif", flex: 1, marginTop: -16 }}>
+                  <p
+                    className="testimonial-quote"
+                    style={{ color: "rgba(255,255,255,0.85)", fontSize: 16, lineHeight: 1.8, fontStyle: "italic", fontFamily: "Georgia, serif", flex: 1, marginTop: -16 }}
+                  >
                     {t.quote}
                   </p>
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "28px 0" }} />
-                  <p className="font-mono" style={{ color: "#fff", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>
+                  <div
+                    className="testimonial-divider"
+                    style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "28px 0" }}
+                  />
+                  <p
+                    className="testimonial-name font-mono"
+                    style={{ color: "#fff", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}
+                  >
                     {t.name}
                   </p>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 11, marginTop: 4 }}>
+                  <p
+                    className="testimonial-role"
+                    style={{ color: "rgba(255,255,255,0.35)", fontSize: 11, marginTop: 4 }}
+                  >
                     {t.role}
                   </p>
                 </article>
@@ -308,22 +357,26 @@ export function Home() {
 
       {/* FINAL CTA — THE STANDARD */}
       <section
-        className="relative overflow-hidden"
+        className="standard-section relative overflow-hidden"
         style={{
           background: "linear-gradient(180deg, #0A0A0A 0%, #0D0D0D 100%)",
           borderTop: "1px solid rgba(255,255,255,0.07)",
           padding: "120px 0",
         }}
       >
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(255,107,0,0.05) 0%, transparent 60%)" }} />
+        <div
+          aria-hidden="true"
+          className="standard-glow pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(255,107,0,0.05) 0%, transparent 60%)" }}
+        />
         <Reveal>
           <div className="container-q text-center relative">
             <PillTags filled="08" outline="The Standard" className="justify-center mb-12" />
-            <h2 style={{ lineHeight: 1.05 }}>
-              <Reveal as="span" className="block" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 300, fontFamily: "Georgia, serif", fontStyle: "italic", color: "#fff" }}>
+            <h2 className="standard-heading" style={{ lineHeight: 1.05 }}>
+              <Reveal as="span" className="block" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 300, fontFamily: "Georgia, serif", fontStyle: "italic" }}>
                 Build.
               </Reveal>
-              <Reveal as="span" delay={120} className="block font-display" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 700, color: "#fff", fontStyle: "normal" }}>
+              <Reveal as="span" delay={120} className="block font-display" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 700, fontStyle: "normal" }}>
                 Innovate.
               </Reveal>
               <Reveal as="span" delay={240} className="block" style={{ fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 300, fontFamily: "Georgia, serif", fontStyle: "italic", color: "#FF6B00" }}>
@@ -331,7 +384,10 @@ export function Home() {
               </Reveal>
             </h2>
             <Reveal delay={360}>
-              <p style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", marginTop: 24, letterSpacing: "0.03em" }}>
+              <p
+                className="standard-sub"
+                style={{ fontSize: 15, color: "rgba(255,255,255,0.4)", marginTop: 24, letterSpacing: "0.03em" }}
+              >
                 The standard is not what gets submitted. It is what gets built.
               </p>
             </Reveal>
@@ -361,7 +417,10 @@ export function Home() {
                   Start a Conversation →
                 </Link>
               </div>
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.2)", marginTop: 20 }}>
+              <p
+                className="standard-email"
+                style={{ fontSize: 12, color: "rgba(255,255,255,0.2)", marginTop: 20 }}
+              >
                 hello@qevrix.com · India · Remote
               </p>
             </Reveal>

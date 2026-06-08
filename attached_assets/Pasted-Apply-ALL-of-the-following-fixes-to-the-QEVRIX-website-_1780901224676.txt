@@ -1,0 +1,303 @@
+Apply ALL of the following fixes to the QEVRIX website.
+Do NOT touch the navbar layout/structure. Do NOT change existing copy.
+
+═══════════════════════════════════════════════════════════
+### 1. LOGO — INCREASE SIZE + FIX X COLOR
+═══════════════════════════════════════════════════════════
+NAVBAR LOGO IMAGE SIZE:
+- Increase the QX monogram logo <img> height to 52px (currently too small)
+- Width: auto, object-fit: contain
+- On mobile: 44px height
+- Ensure the logo image and "QEVRIX." text are vertically centered
+- Gap between logo image and text: 14px
+
+WORDMARK "X" — PARTIAL ORANGE ONLY (edge stroke, not full letter):
+The X must show white on the top-left strokes and orange only on the
+bottom-right diagonal stroke — exactly matching the SVG logo where
+only one diagonal of the X is orange.
+
+Implement using CSS gradient clip:
+Find every instance of the QEVRIX wordmark text in navbar and footer.
+Wrap ONLY the "X" character in a <span class="qx-letter">.
+Apply this CSS:
+
+.qx-letter {
+  background: linear-gradient(
+    148deg,
+    #ffffff 0%,
+    #ffffff 45%,
+    #FF6B00 55%,
+    #FF6B00 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+This creates a split where the top-left of X is white and the
+bottom-right diagonal is orange — matching the actual SVG logo.
+Apply to: navbar "QEVRIX." text, footer "QEVRIX." text, and any
+standalone brand heading that shows the full wordmark.
+Do NOT apply to body copy or meta tags.
+
+LIGHT MODE LOGO FIX:
+In light mode the QX logo PNG (dark background) becomes invisible.
+Fix:
+- In light mode (.light-mode), apply to the QX logo <img>:
+  filter: invert(1) brightness(0.1)
+  This inverts it so the dark background becomes light and the
+  white Q becomes dark — readable on light backgrounds.
+- The orange X in the SVG becomes blue on invert — override:
+  After the invert, use a CSS mix or apply a separate light-mode
+  logo variant. Simplest fix: in .light-mode, hide the PNG logo
+  image and show a text-only "QX" in dark color with orange X
+  using the .qx-letter class above but with dark text:
+  .light-mode .qx-letter {
+    background: linear-gradient(148deg,#0A0A0A 0%,#0A0A0A 45%,
+    #FF6B00 55%,#FF6B00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .light-mode .navbar-logo-text { color: #0A0A0A; }
+
+═══════════════════════════════════════════════════════════
+### 2. BY THE NUMBERS — REMOVE DIVIDER LINES
+═══════════════════════════════════════════════════════════
+The vertical divider lines between the stats appear as visible boxes/
+borders and look bad. Fix:
+- Remove all vertical divider lines between stats completely
+- Instead, let the spacing (generous gap: 64px on desktop) do the
+  visual separation — no borders, no lines, no boxes
+- Each stat: just the large italic serif number + orange label below
+- No border, no box-shadow, no background on individual stat items
+- The section itself keeps its top + bottom 1px border
+- On mobile (2×2 grid): no horizontal dividers either
+
+═══════════════════════════════════════════════════════════
+### 3. LIGHT MODE — COMPREHENSIVE FIX
+═══════════════════════════════════════════════════════════
+Light mode has many broken areas. Fix ALL of them:
+
+GENERAL:
+html.light-mode {
+  background-color: #F5F5F0;
+  color: #0A0A0A;
+}
+
+NAVBAR in light mode:
+.light-mode nav, .light-mode header {
+  background: rgba(245,245,240,0.95) !important;
+  border-bottom-color: rgba(0,0,0,0.08) !important;
+}
+.light-mode .nav-link { color: rgba(0,0,0,0.55) !important; }
+.light-mode .nav-link:hover { color: #0A0A0A !important; }
+.light-mode .nav-link.active { color: #0A0A0A !important; }
+
+SECTION LABELS [ XX ][ LABEL ]:
+.light-mode .section-label,
+.light-mode [class*="label"] {
+  color: rgba(0,0,0,0.35) !important;
+  border-color: rgba(0,0,0,0.15) !important;
+  background: transparent !important;
+}
+
+RECOGNITION / TESTIMONIALS CARDS in light mode:
+.light-mode .testimonial-card,
+.light-mode [class*="recognition"] {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #0A0A0A !important;
+}
+.light-mode .testimonial-quote { color: rgba(0,0,0,0.8) !important; }
+.light-mode .testimonial-name { color: #0A0A0A !important; }
+.light-mode .testimonial-role { color: rgba(0,0,0,0.4) !important; }
+.light-mode .quote-mark { color: #FF6B00 !important; opacity: 0.7; }
+
+THE STANDARD / BUILD.INNOVATE.EVOLVE. section in light mode:
+.light-mode .standard-section,
+.light-mode [class*="standard"],
+.light-mode [class*="cta-section"] {
+  background: #EEEDE8 !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+.light-mode .standard-heading { color: #0A0A0A !important; }
+.light-mode .standard-sub { color: rgba(0,0,0,0.4) !important; }
+.light-mode .standard-email { color: rgba(0,0,0,0.25) !important; }
+The "Evolve." word in orange stays orange in light mode — keep it.
+
+PROJECTS PAGE in light mode — fix all invisible text:
+.light-mode .project-card {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+.light-mode .project-title { color: #0A0A0A !important; }
+.light-mode .project-description { color: rgba(0,0,0,0.6) !important; }
+.light-mode .project-path { color: rgba(0,0,0,0.3) !important; }
+.light-mode .project-spec-label { color: #FF6B00 !important; }
+.light-mode .project-spec-value { color: #0A0A0A !important; }
+.light-mode .project-domain-tag {
+  background: rgba(255,107,0,0.08) !important;
+  border-color: rgba(255,107,0,0.2) !important;
+  color: #FF6B00 !important;
+}
+.light-mode .project-number { color: #FF6B00 !important; }
+.light-mode .project-year { color: rgba(0,0,0,0.3) !important; }
+.light-mode .filter-tab-inactive {
+  background: rgba(0,0,0,0.04) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  color: rgba(0,0,0,0.45) !important;
+}
+.light-mode .filter-tab-active {
+  background: #FF6B00 !important;
+  color: #FFFFFF !important;
+}
+.light-mode .view-details-btn {
+  border-color: rgba(0,0,0,0.15) !important;
+  color: rgba(0,0,0,0.5) !important;
+}
+.light-mode .view-details-btn:hover {
+  border-color: rgba(255,107,0,0.4) !important;
+  color: #0A0A0A !important;
+}
+
+PROJECT IMAGES in light mode:
+.light-mode .project-image-container {
+  background: #E8E8E2 !important;
+}
+Project images themselves — add to ALL project <img> tags:
+  border-radius matching the card
+  If the project image has a dark background that bleeds in light mode,
+  wrap it in a container with background: #1A1A1A in dark mode and
+  #E8E8E2 in light mode so the image always has a contained background.
+
+CARDS (team, domains, features) in light mode:
+.light-mode .card,
+.light-mode [class*="card"] {
+  background: #FFFFFF !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+.light-mode .card-heading { color: #0A0A0A !important; }
+.light-mode .card-body { color: rgba(0,0,0,0.55) !important; }
+.light-mode .card-role { color: #FF6B00 !important; }
+
+FOOTER in light mode:
+.light-mode footer {
+  background: #EEEDE8 !important;
+  border-top-color: rgba(0,0,0,0.08) !important;
+}
+.light-mode footer a { color: rgba(0,0,0,0.5) !important; }
+.light-mode footer a:hover { color: #0A0A0A !important; }
+.light-mode .footer-brand { color: #0A0A0A !important; }
+.light-mode .footer-tagline { color: rgba(0,0,0,0.35) !important; }
+.light-mode .footer-copyright { color: rgba(0,0,0,0.3) !important; }
+
+INPUTS AND FORM in light mode:
+.light-mode input,
+.light-mode textarea,
+.light-mode select {
+  background: #FFFFFF !important;
+  color: #0A0A0A !important;
+  border-color: rgba(0,0,0,0.15) !important;
+}
+.light-mode input::placeholder,
+.light-mode textarea::placeholder {
+  color: rgba(0,0,0,0.35) !important;
+}
+
+SECTION BORDERS in light mode:
+All 1px borders that use rgba(255,255,255,0.07) → change to
+rgba(0,0,0,0.07) in light mode.
+Apply: .light-mode * { border-color color-mix handling }
+Specifically: any element with border using white opacity must
+override to dark opacity in light mode.
+
+MUTED TEXT in light mode:
+Any text using rgba(255,255,255,0.4) or similar white opacity
+must be overridden to rgba(0,0,0,0.4) in light mode.
+Apply a global rule:
+.light-mode .muted { color: rgba(0,0,0,0.4) !important; }
+.light-mode .very-muted { color: rgba(0,0,0,0.25) !important; }
+
+404 PAGE in light mode:
+.light-mode .error-page { background: #F5F5F0 !important; }
+.light-mode .error-number {
+  -webkit-text-stroke-color: rgba(0,0,0,0.12) !important;
+}
+.light-mode .error-heading { color: #0A0A0A !important; }
+.light-mode .error-sub { color: rgba(0,0,0,0.4) !important; }
+.light-mode .error-watermark {
+  color: rgba(0,0,0,0.025) !important;
+}
+
+COOKIE BANNER in light mode:
+.light-mode .cookie-banner {
+  background: #FFFFFF !important;
+  border-top-color: rgba(0,0,0,0.08) !important;
+  color: #0A0A0A !important;
+}
+
+SCROLL PROGRESS BAR: stays orange in both modes — no change.
+
+THEME TOGGLE BUTTON in light mode:
+.light-mode .theme-toggle {
+  background: rgba(0,0,0,0.06) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+
+═══════════════════════════════════════════════════════════
+### 4. PROJECT IMAGES — FIX APPEARANCE
+═══════════════════════════════════════════════════════════
+Project card images are not looking good. Fix:
+- Wrap every project image in a container div with:
+  background: #111111 (dark mode) / #E0DFD9 (light mode)
+  border-radius: same as card top corners
+  overflow: hidden
+  aspect-ratio: 16/9
+  width: 100%
+- The image inside: width 100%, height 100%, object-fit: cover,
+  object-position: center
+- On card hover: image transforms scale(1.04), transition 0.5s ease
+- Add a subtle gradient overlay on the image bottom:
+  background: linear-gradient(to bottom, transparent 60%,
+  rgba(0,0,0,0.4) 100%)
+  position: absolute, bottom: 0, width: 100%, height: 40%
+  (this overlay only in dark mode — hide in light mode)
+- If project images fail to load, show a styled fallback:
+  The fallback shows the project domain tag centered on the
+  dark (#111) background with a subtle QX watermark
+
+═══════════════════════════════════════════════════════════
+### 5. RECOGNITION SECTION — LIGHT MODE CARD BORDERS
+═══════════════════════════════════════════════════════════
+In light mode the Recognition/testimonial card borders are showing
+as white boxes that look broken. The fix is in Section 3 above
+(.light-mode .testimonial-card border-color). Additionally:
+- The left orange accent border (border-left: 2px solid #FF6B00)
+  must remain visible in BOTH modes — it's the key visual element
+- The card box-shadow in light mode:
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+
+═══════════════════════════════════════════════════════════
+### 6. THE STANDARD SECTION — LIGHT MODE FIX
+═══════════════════════════════════════════════════════════
+"Build. Innovate. Evolve." section in light mode currently has
+invisible or white-on-white text. Covered in Section 3 above.
+Additionally ensure:
+- The radial orange glow background in light mode is reduced:
+  rgba(255,107,0,0.03) instead of 0.05
+- The CTA button "Start a Conversation" stays orange with white text
+  in both modes — no change needed on the button itself
+- The supporting text below the heading in light mode:
+  color: rgba(0,0,0,0.45) — must be clearly readable
+
+═══════════════════════════════════════════════════════════
+GLOBAL RULES
+═══════════════════════════════════════════════════════════
+- Dark mode is default and must remain exactly unchanged
+- Light mode is purely additive via .light-mode class on <html>
+- Orange #FF6B00 stays identical in both modes
+- Do NOT change navbar structure, existing copy, or section order
+- All fixes must be responsive: 375px · 768px · 1440px
+- Run npm run build to verify zero errors after all changes

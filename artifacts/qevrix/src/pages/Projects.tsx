@@ -94,13 +94,20 @@ export function Projects() {
       {/* Case studies */}
       <div style={{ borderTop: "1px solid var(--color-border)" }}>
         {projects.map((p, i) => (
-          <section key={p.index} className="py-24 md:py-40" style={i !== 0 ? { borderTop: "1px solid var(--color-border)" } : {}}>
+          <section
+            key={p.index}
+            className="py-24 md:py-40"
+            style={i !== 0 ? { borderTop: "1px solid var(--color-border)" } : {}}
+          >
             <div className="container-q">
+              {/* Index row */}
               <Reveal>
                 <div className="flex items-center gap-6 mb-10">
                   <span className="font-mono text-xs uppercase tracking-[0.22em]" style={{ color: "#FF6B00" }}>{p.index}</span>
                   <span className="h-px flex-1" style={{ background: "var(--color-border)" }} />
-                  <span className="font-mono text-xs uppercase tracking-[0.22em]" style={{ color: "var(--color-muted-foreground)" }}>{p.domain} · {p.year}</span>
+                  <span className="font-mono text-xs uppercase tracking-[0.22em]" style={{ color: "var(--color-muted-foreground)" }}>
+                    {p.domain} · {p.year}
+                  </span>
                 </div>
               </Reveal>
 
@@ -108,26 +115,69 @@ export function Projects() {
                 <h2 className="text-display-xl max-w-4xl">{p.title}</h2>
               </Reveal>
 
+              {/* Project image — fixed container with hover scale */}
               <Reveal delay={120}>
-                <div className="mt-14 relative overflow-hidden" style={{ aspectRatio: "21/9", background: "var(--color-muted)" }}>
-                  <img src={p.img} alt={p.title} className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.9 }} />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%)" }} />
-                  <span className="absolute bottom-6 left-6 font-mono uppercase" style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.7)" }}>
+                <div
+                  className="project-img-wrap mt-14"
+                  style={{ aspectRatio: "21/9", position: "relative", borderRadius: 2 }}
+                >
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                  />
+                  {/* Dark-mode-only gradient overlay */}
+                  <div
+                    className="project-img-overlay"
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: "40%",
+                      background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  <span
+                    className="absolute font-mono uppercase"
+                    style={{ fontSize: 10, letterSpacing: "0.22em", color: "rgba(255,255,255,0.7)", bottom: 24, left: 24 }}
+                  >
                     QEVRIX / {p.title}
                   </span>
                 </div>
               </Reveal>
 
+              {/* Description + specs */}
               <div className="mt-16 grid md:grid-cols-12 gap-10">
                 <Reveal className="md:col-span-7">
-                  <p className="text-display-lg mb-8" style={{ color: "rgba(255,255,255,0.9)" }}>{p.summary}</p>
-                  <p className="leading-relaxed text-base md:text-lg max-w-2xl" style={{ color: "var(--color-muted-foreground)" }}>{p.body}</p>
+                  <p
+                    className="project-summary text-display-lg mb-8"
+                    style={{ color: "rgba(255,255,255,0.9)" }}
+                  >
+                    {p.summary}
+                  </p>
+                  <p
+                    className="project-body leading-relaxed text-base md:text-lg max-w-2xl"
+                    style={{ color: "var(--color-muted-foreground)" }}
+                  >
+                    {p.body}
+                  </p>
                 </Reveal>
                 <Reveal delay={140} className="md:col-span-5 md:pt-2">
                   <dl style={{ borderTop: "1px solid var(--color-border)" }}>
                     {p.metrics.map((m) => (
-                      <div key={m.k} className="flex items-baseline justify-between py-5" style={{ borderBottom: "1px solid var(--color-border)" }}>
-                        <dt className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: "0.22em", color: "var(--color-muted-foreground)" }}>{m.k}</dt>
+                      <div
+                        key={m.k}
+                        className="flex items-baseline justify-between py-5"
+                        style={{ borderBottom: "1px solid var(--color-border)" }}
+                      >
+                        <dt
+                          className="font-mono uppercase"
+                          style={{ fontSize: 11, letterSpacing: "0.22em", color: "var(--color-muted-foreground)" }}
+                        >
+                          {m.k}
+                        </dt>
                         <dd className="font-display text-2xl md:text-3xl font-semibold">{m.v}</dd>
                       </div>
                     ))}

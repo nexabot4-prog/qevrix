@@ -7,9 +7,13 @@ export function Footer() {
       <div className="container-q border-t pt-16 pb-14" style={{ borderColor: "var(--color-border)" }}>
         <div className="grid gap-12 md:grid-cols-3">
           <div className="space-y-5">
-            <Link to="/" aria-label="QEVRIX Home" className="font-display text-2xl font-bold tracking-tight inline-block"
-              style={{ color: "var(--color-foreground)", textDecoration: "none" }}>
-              QEVRI<span className="x-gradient">X</span>
+            <Link
+              to="/"
+              aria-label="QEVRIX Home"
+              className="font-display text-2xl font-bold tracking-tight inline-block"
+              style={{ color: "var(--color-foreground)", textDecoration: "none" }}
+            >
+              QEVRI<span className="qx-letter">X</span>
               <span style={{ color: "#FF6B00" }}>.</span>
             </Link>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--color-muted-foreground)", maxWidth: "28ch" }}>
@@ -18,12 +22,12 @@ export function Footer() {
             <p style={{ fontSize: 14, color: "var(--color-muted-foreground)" }}>
               &copy; {year} QEVRIX. All rights reserved.
             </p>
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
-              <Link to="/privacy" className="hover:text-foreground transition-colors" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link>
+            <p className="footer-copyright" style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+              <Link to="/privacy" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link>
               <span style={{ margin: "0 8px" }}>·</span>
-              <Link to="/terms" className="hover:text-foreground transition-colors" style={{ color: "inherit", textDecoration: "none" }}>Terms</Link>
+              <Link to="/terms" style={{ color: "inherit", textDecoration: "none" }}>Terms</Link>
               <span style={{ margin: "0 8px" }}>·</span>
-              <Link to="/sitemap" className="hover:text-foreground transition-colors" style={{ color: "inherit", textDecoration: "none" }}>Sitemap</Link>
+              <Link to="/sitemap" style={{ color: "inherit", textDecoration: "none" }}>Sitemap</Link>
             </p>
           </div>
 
@@ -34,7 +38,11 @@ export function Footer() {
               { to: "/projects", label: "Projects" },
               { to: "/contact", label: "Contact" },
             ].map((l) => (
-              <Link key={l.to} to={l.to} style={{ fontSize: 14, color: "var(--color-muted-foreground)", textDecoration: "none" }}>
+              <Link
+                key={l.to}
+                to={l.to}
+                style={{ fontSize: 14, color: "var(--color-muted-foreground)", textDecoration: "none" }}
+              >
                 {l.label}
               </Link>
             ))}
