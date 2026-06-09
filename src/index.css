@@ -56,6 +56,7 @@
   --dot-color: oklch(0.21 0 0);
   --dot-size: 28px;
   --frame-color: oklch(0.21 0 0);
+  --font-display-serif: 'Playfair Display', Georgia, serif;
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
