@@ -153,6 +153,7 @@ html.light-mode {
   .font-display { font-family: var(--font-display); letter-spacing: -0.03em; }
   .font-body    { font-family: var(--font-body); }
   .font-mono    { font-family: var(--font-mono); }
+  .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
 
   /* ── Page fade-in ────────────────────────────────────────────────────────── */
   @keyframes pageFadeIn {
